@@ -1,12 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/screens/login.dart';
 import 'package:chatapp/components/background.dart';
 
 class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
+  final auth = FirebaseAuth.instance;
+  final CollectionReference ref = FirebaseFirestore.instance.collection('user');
+
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmpassController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Background(
         child: Column(
@@ -20,7 +28,7 @@ class RegisterScreen extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2661FA),
-                    fontSize: 28),
+                    fontSize: 24),
                 textAlign: TextAlign.left,
               ),
             ),
@@ -44,16 +52,18 @@ class RegisterScreen extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: const TextField(
-                decoration: InputDecoration(labelText: "Логин"),
+              child: TextField(
+                decoration: const InputDecoration(labelText: "Логин"),
+                controller: emailController,
               ),
             ),
             SizedBox(height: size.height * 0.03),
             Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: const TextField(
-                decoration: InputDecoration(labelText: "Пароль"),
+              child: TextField(
+                decoration: const InputDecoration(labelText: "Пароль"),
+                controller: passwordController,
                 obscureText: true,
               ),
             ),
@@ -75,7 +85,18 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await auth
+                          .createUserWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text)
+                          .whenComplete(() {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      });
+                    },
                     child: const Text(
                       "РЕГИСТРАЦИЯ",
                       textAlign: TextAlign.center,

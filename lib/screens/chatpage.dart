@@ -5,19 +5,18 @@ import 'login.dart';
 import '../components/message.dart';
 
 class chatpage extends StatefulWidget {
-  String email;
+  final String email;
   chatpage({required this.email});
   @override
   _chatpageState createState() => _chatpageState(email: email);
 }
 
 class _chatpageState extends State<chatpage> {
-  String email;
   _chatpageState({required this.email});
-
+  String email;
   final fs = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
-  final TextEditingController message = new TextEditingController();
+  final TextEditingController message = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +62,7 @@ class _chatpageState extends State<chatpage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.79,
               child: Messages(
                 email: email,
@@ -82,14 +81,14 @@ class _chatpageState extends State<chatpage> {
                       contentPadding: const EdgeInsets.only(
                           left: 14.0, bottom: 8.0, top: 8.0),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: new BorderSide(
+                        borderSide: const BorderSide(
                             color: Color.fromARGB(255, 91, 117, 240)),
-                        borderRadius: new BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: new BorderSide(
+                        borderSide: const BorderSide(
                             color: Color.fromARGB(255, 91, 117, 240)),
-                        borderRadius: new BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     validator: (value) {},
@@ -110,7 +109,7 @@ class _chatpageState extends State<chatpage> {
                       message.clear();
                     }
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.send_sharp,
                     color: Color.fromARGB(255, 91, 117, 240),
                   ),

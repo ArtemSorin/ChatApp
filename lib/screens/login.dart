@@ -6,18 +6,12 @@ import 'package:chatapp/components/background.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  bool _isObscure3 = true;
-  bool visible = false;
-  final _formkey = GlobalKey<FormState>();
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
-
-  final _auth = FirebaseAuth.instance;
-
+  final bool visible = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Background(
         child: Column(
@@ -25,13 +19,13 @@ class LoginScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
               child: const Text(
                 "MOP HELP",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2661FA),
-                    fontSize: 28),
+                    fontSize: 24),
                 textAlign: TextAlign.left,
               ),
             ),
@@ -40,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: TextField(
-                decoration: InputDecoration(labelText: "Почта"),
+                decoration: const InputDecoration(labelText: "Почта"),
                 controller: emailController,
               ),
             ),
@@ -49,7 +43,7 @@ class LoginScreen extends StatelessWidget {
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: TextField(
-                decoration: InputDecoration(labelText: "Пароль"),
+                decoration: const InputDecoration(labelText: "Пароль"),
                 obscureText: true,
                 controller: passwordController,
               ),
@@ -136,6 +130,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-  void signIn(String email, String password) async {}
 }
